@@ -319,7 +319,8 @@ func (j *Jenkins) GetJob(id string, parentIDs ...string) (*Job, error) {
 	if status == 200 {
 		return &job, nil
 	}
-	return nil, errors.New(strconv.Itoa(status))
+
+	return nil, fmt.Errorf("jenkins API Response: status: %d, msg: %+#v", status, job.Raw)
 }
 
 func (j *Jenkins) GetSubJob(parentId string, childId string) (*Job, error) {
